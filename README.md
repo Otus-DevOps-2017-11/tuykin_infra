@@ -1,5 +1,7 @@
 # Repo for Google Cloud Platform exercises
 
+## HW05
+
 Author: Anvar Tuykin
 
 ### Architecture:
@@ -39,4 +41,34 @@ Host internalhost
   User tuykin
   # ProxyCommand ssh bastion nc %h %p
   ProxyJump bastion
+```
+
+## HW06
+
+Here's `gcloud` command to create an instance with initial setup (startup script is running)
+Be aware, that script execution takes time. Therefore application will be available after some minutes.
+
+```(bash)
+gcloud compute instances create reddit-app \
+  --boot-disk-size=10GB \
+  --image-family ubuntu-1604-lts \
+  --image-project=ubuntu-os-cloud \
+  --machine-type=f1-micro \
+  --tags "http-server","https-server","default-puma-server" \
+  --preemptible \
+  --restart-on-failure \
+  --zone=europe-west1-d \
+  --metadata-from-file startup-script=startup.sh
+```
+
+You can run your script from some remote url. To do that replace `--metadata-from-file` flag with `--metadata startup-script-url`. For example:
+```(bash)
+--metadata startup-script-url=https://raw.githubusercontent.com/Otus-DevOps-2017-11/tuykin_infra/Infra-2/startup.sh
+# OR
+--metadata startup-script-url=gs://tuykin-hw/startup.sh # to load from google storage bucker
+```
+
+To create firewall rule for puma server use:
+```(bash)
+gcloud compute firewall-rules create default-puma-server --allow tcp:9292
 ```
