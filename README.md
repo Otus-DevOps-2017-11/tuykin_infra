@@ -122,3 +122,5 @@ You can extract user varible to file. See `variables.json.example`. And build us
 ```(bash)
 packer build -var-file=variables.json ubuntu16.json 
 ```
+
+Optional params example can be found in `packer/ubuntu16_custom.json`.
