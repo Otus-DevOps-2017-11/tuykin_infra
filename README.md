@@ -2,7 +2,7 @@
 
 Author: Anvar Tuykin
 
-## HW05
+## HW05 - Introduction to GCP
 
 ### Architecture:
 - Bastion host as fronted server (external ip available)
@@ -51,7 +51,7 @@ Host internalhost
   ProxyJump bastion
 ```
 
-## HW06
+## HW06 - Using gcloud
 
 Here's `gcloud` command to create an instance with initial setup (startup script is running)
 Be aware, that script execution takes time. Therefore application will be available after some minutes.
@@ -80,3 +80,34 @@ To create firewall rule for puma server use:
 ```(bash)
 gcloud compute firewall-rules create default-puma-server --allow tcp:9292 --target-tags=puma-server
 ```
+
+## HW07 - Packer
+
+You can find packer template here: `packer/ubuntu16.json`.
+
+To validate template file run
+```(bash)
+packer validate packer/ubuntu16.json
+```
+
+To build new image run
+```(bash)
+packer build packer/ubuntu16.json
+```
+
+To create machine from created image use `--image` flag:
+```(bash)
+cd packer
+gcloud compute instances create reddit-app \
+  --boot-disk-size=10GB \
+  --image-project=infra-189018 \
+  --image=reddit-base-1513968289 
+  --machine-type=f1-micro \
+  --tags "default-puma-server" \
+  --preemptible \
+  --restart-on-failure \
+  --zone=europe-west1-d \
+  --metadata-from-file startup-script=scripts/deploy.sh
+```
+
+
