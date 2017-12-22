@@ -24,7 +24,7 @@ sudo systemctl status mongod
 echo "Deploying app..."
 
 echo "Clonning repo"
-cd /home/tuykin
+cd $HOME
 git clone https://github.com/Otus-DevOps-2017-11/reddit.git
 
 echo "Installing gems"

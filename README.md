@@ -54,7 +54,7 @@ gcloud compute instances create reddit-app \
   --image-family ubuntu-1604-lts \
   --image-project=ubuntu-os-cloud \
   --machine-type=f1-micro \
-  --tags "http-server","https-server","default-puma-server" \
+  --tags "default-puma-server" \
   --preemptible \
   --restart-on-failure \
   --zone=europe-west1-d \
@@ -70,5 +70,5 @@ You can run your script from some remote url. To do that replace `--metadata-fro
 
 To create firewall rule for puma server use:
 ```(bash)
-gcloud compute firewall-rules create default-puma-server --allow tcp:9292
+gcloud compute firewall-rules create default-puma-server --allow tcp:9292 --target-tags=puma-server
 ```
