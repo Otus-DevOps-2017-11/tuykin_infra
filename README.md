@@ -1,8 +1,8 @@
 # Repo for Google Cloud Platform exercises
 
-## HW05
-
 Author: Anvar Tuykin
+
+## HW05
 
 ### Architecture:
 - Bastion host as fronted server (external ip available)
@@ -12,13 +12,21 @@ Author: Anvar Tuykin
 - Bastion: 104.199.79.63 (external), 10.132.0.2 (internal)
 - someinternalhost: 10.132.0.3
 
-User: `tuykin`
+### SSH keys
+
+It's preferrable to create separate key for GCP:
+
+```(bash)
+ssh-keygen -t rsa -f ~/.ssh/appuser -C appuser -P ""
+```
+
+User: `appuser`
 
 ### Connection
 
 To connect to internal server directly use the command below:
 ```(bash)
-ssh -At tuykin@104.199.79.63 ssh 10.132.0.3
+ssh -i ~/.ssh/appuser -At appuser@104.199.79.63 ssh 10.132.0.3
 ```
 
 There's a way to make connection easier. To be able to connect with
@@ -33,12 +41,12 @@ you should add `~/.ssh/config` with content below:
 # Broker / frontend machine
 Host bastion
   Hostname 104.199.79.63
-  User tuykin
+  User appuser
 
 # Target host
 Host internalhost
   Hostname 10.132.0.3
-  User tuykin
+  User appuser
   # ProxyCommand ssh bastion nc %h %p
   ProxyJump bastion
 ```
