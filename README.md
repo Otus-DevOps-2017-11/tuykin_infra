@@ -117,3 +117,8 @@ packer build \
        -var 'source_image_family=ubuntu-1604-lts' \
        ubuntu16.json
 ```
+
+You can extract user varible to file. See `variables.json.example`. And build using it:
+```(bash)
+packer build -var-file=variables.json ubuntu16.json 
+```
