@@ -110,4 +110,10 @@ gcloud compute instances create reddit-app \
   --metadata-from-file startup-script=scripts/deploy.sh
 ```
 
-
+To run with user variables:
+```(bash)
+packer build \
+       -var 'project_id=infra-189018' \
+       -var 'source_image_family=ubuntu-1604-lts' \
+       ubuntu16.json
+```
