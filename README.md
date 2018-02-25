@@ -124,3 +124,28 @@ packer build -var-file=variables.json ubuntu16.json
 ```
 
 Optional params example can be found in `packer/ubuntu16_custom.json`.
+
+## HW08 - Terraform
+
+Terraform - инструмент для описания IaC. Мы разберем его на примере использования совместно с GCP.
+
+- *Provider* - определяет поставщика услуг (где будем настраивать инфраструктуру). Например, GCP или AWS.
+- *Resource* - элемент для настрйки. Например, [инстанс сервера](https://www.terraform.io/docs/providers/google/r/compute_instance.html), правило файрвола, ip-адрес. Со списком ресурсов для GCP можно ознакомиться [тут](https://www.terraform.io/docs/providers/google/index.html).
+
+### Файлы
+- `main.tf` - основная конфигурация инстанса и сопутствующих ресурсов
+- `outputs.tf` - выходные параметры
+- `variables.tf` - переменные, используемые при настройке
+- `terraform.tfvars` - текущее значение переменных
+- `files/*` - дополнительные файлы, используемые для развертывания (provisioning) приложения
+
+### Команды
+```
+terraform init # инициализация и установка провайдера
+terraform plan # планирование изменений
+terraform apply --auto-approve=true # применение изменений
+terraform show # просмотр текущих знанечинй параметров ресурсов
+terraform output # просмотр выходных параметров
+terraform taint resource_name # запрос на пересоздание ресурса
+terraform destroy # удаление инфраструктуры
+```
