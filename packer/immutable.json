@@ -13,11 +13,15 @@
     "source_image_family": "{{user `source_image_family`}}",
     "zone": "europe-west1-d",
     "ssh_username": "appuser",
-    "machine_type": "{{user `machine_type`}}",
-    "startup_script_file": "scripts/startup.sh"
+    "machine_type": "{{user `machine_type`}}"
     }
   ],
   "provisioners": [
+    {
+      "type": "file",
+      "source": "files/puma.service",
+      "destination": "/tmp/puma.service"
+    },
     {
       "type": "shell",
       "script": "scripts/install_ruby.sh",

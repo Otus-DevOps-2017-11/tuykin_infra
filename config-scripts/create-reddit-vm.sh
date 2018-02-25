@@ -3,6 +3,5 @@ gcloud compute instances create reddit-app \
   --image-family=reddit-full \
   --tags "default-puma-server" \
   --preemptible \
-  --restart-on-failure \
-  --metadata-from-file startup-script=config-scripts/start_puma.sh
+  --restart-on-failure
 
